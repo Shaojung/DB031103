@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 if (frags == null || frags.size() < 6)
                 {
                     ft.add(R.id.containerLayout, new LottoFragment(), "f_lotto");
+                    ft.addToBackStack(null);
                 }
 
                 break;
@@ -41,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
                     sb.append(tv.getText().toString() + ",");
                 }
                 tv3.setText(sb.toString());
+                break;
+            case R.id.pop:
+                fm.popBackStack();
+                break;
+            case R.id.clear:
+                fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 break;
 
         }
