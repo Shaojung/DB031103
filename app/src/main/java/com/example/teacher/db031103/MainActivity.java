@@ -23,17 +23,24 @@ public class MainActivity extends AppCompatActivity {
     {
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+        List<android.support.v4.app.Fragment> frags = getSupportFragmentManager().getFragments();
         switch (v.getId())
         {
             case R.id.lotto:
-                ft.add(R.id.containerLayout, new LottoFragment(), "f_lotto");
+                if (frags == null || frags.size() < 6)
+                {
+                    ft.add(R.id.containerLayout, new LottoFragment(), "f_lotto");
+                }
+
                 break;
             case R.id.get:
-                List<android.support.v4.app.Fragment> frags = getSupportFragmentManager().getFragments();
-                Fragment f = fm.findFragmentByTag("f_lotto");
-                TextView tv = (TextView) f.getView().findViewById(R.id.textView);
-                String n = tv.getText().toString();
-                tv3.setText(n);
+                StringBuilder sb = new StringBuilder();
+                for (Fragment f : frags)
+                {
+                    TextView tv = (TextView) f.getView().findViewById(R.id.textView);
+                    sb.append(tv.getText().toString() + ",");
+                }
+                tv3.setText(sb.toString());
                 break;
 
         }
